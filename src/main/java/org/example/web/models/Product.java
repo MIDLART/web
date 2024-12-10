@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Product {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Integer id;
   @Column(name = "name")
@@ -26,6 +26,9 @@ public class Product {
           mappedBy = "product")
   private List<Image> images = new ArrayList<>();
   private Integer previewImageId;
+  @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+  @JoinColumn
+  private User user;
   private LocalDateTime dateOfCreated;
 
   @PrePersist

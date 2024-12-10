@@ -13,10 +13,9 @@
     <img src="/images/${img.id}" height="60px" alt="img"/><br><br>
 </#list>
 
-<hr>
-<h3>Убрать бонусы</h3>
-<form action="/product/delete/${product.id}" method="post">
-    <input type="submit" value="Убрать добрую штучку">
-</form>
+<b>Название товара: </b>${product.name}<br>
+<b>Автор: </b>${product.user.name}<br>
+<b>Номер телефона: </b>${product.user.phoneNumber}<br>
+
 </body>
 </html>

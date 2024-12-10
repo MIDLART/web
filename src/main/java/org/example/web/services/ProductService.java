@@ -2,14 +2,17 @@ package org.example.web.services;
 
 import org.example.web.models.Image;
 import org.example.web.models.Product;
+import org.example.web.models.User;
 import org.example.web.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.web.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -17,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
   private final ProductRepository productRepository;
+  private final UserRepository userRepository;
 
   public List<Product> listProducts(String title) {
     if (title != null) return productRepository.findByName(title);
@@ -24,7 +28,9 @@ public class ProductService {
   }
 
   @Transactional
-  public void saveProduct(Product product, MultipartFile file1, MultipartFile file2) throws IOException {
+  public void saveProduct(Principal principal, Product product, MultipartFile file1, MultipartFile file2) throws IOException {
+    product.setUser(getUserByPrincipal(principal));
+
     Image image1;
     Image image2;
     if (file1.getSize() != 0) {
@@ -37,10 +43,15 @@ public class ProductService {
       product.addImageToProduct(image2);
     }
 
-    log.info("Saving new Product. Title: {};", product.getName());
+    log.info("Saving new Product. Title: {}; Author email: {}", product.getName(), product.getUser().getEmail());
     Product productFromDb = productRepository.save(product);
     productFromDb.setPreviewImageId(productFromDb.getImages().get(0).getId());
     productRepository.save(product);
+  }
+
+  public User getUserByPrincipal(Principal principal) {
+    if (principal == null) return new User();
+    return userRepository.findByEmail(principal.getName());
   }
 
   private Image toImageEntity(MultipartFile file) throws IOException {
