@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "images")
@@ -16,19 +15,26 @@ public class Image {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
   private Integer id;
+
   @Column(name = "name")
   private String name;
+
   @Column(name = "originalFileName")
   private String originalFileName;
+
   @Column(name = "size")
   private Long size;
+
   @Column(name = "contentType")
   private String contentType;
+
   @Column(name = "isPreviewImage")
   private boolean isPreviewImage;
+
   @Lob
   //@Column(name = "bytes", columnDefinition = "bytea")
   private byte[] bytes;
+
   @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-  private Book Book;
+  private Book book;
 }
