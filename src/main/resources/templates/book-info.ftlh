@@ -7,14 +7,14 @@
 <body>
 <h1>Meow info</h1>
 
-<b>Бонус: </b> ${product.name}<br>
+<b>Бонус: </b> ${book.name}<br>
 
-<#list product.images as img>
+<#list book.images as img>
     <img src="/images/${img.id}" height="60px" alt="img"/><br><br>
 </#list>
 
-<b>Название товара: </b>${product.name}<br>
-<b>Автор: </b><a href="/user/${product.user.id}">${product.user.name}</a><br>
+<b>Название товара: </b>${book.name}<br>
+<b>Автор: </b><a href="/user/${book.user.id}">${book.user.name}</a><br>
 
 </body>
 </html>

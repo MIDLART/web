@@ -9,9 +9,9 @@
 <b>Номер телефона: </b> ${user.phoneNumber}<br>
 <b>Email: </b> ${user.email}<br>
 <h4>Товары пользователя ${user.name}</h4>
-<#list products as product>
+<#list books as book>
     <div>
-        <p><b>${product.name}</b> | <a href="/product/${product.id}">Подробнее...</a></p>
+        <p><b>${book.name}</b> | <a href="/book/${book.id}">Подробнее...</a></p>
     </div>
 <#else>
     <h3>Товаров нет</h3>

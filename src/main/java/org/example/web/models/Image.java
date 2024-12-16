@@ -30,5 +30,5 @@ public class Image {
   //@Column(name = "bytes", columnDefinition = "bytea")
   private byte[] bytes;
   @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-  private Product product;
+  private Book Book;
 }

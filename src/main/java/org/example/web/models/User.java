@@ -37,7 +37,7 @@ public class User implements UserDetails {
   @Enumerated(EnumType.STRING)
   private Set<Role> roles = new HashSet<>();
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-  private List<Product> products = new ArrayList<>();
+  private List<Book> Books = new ArrayList<>();
   private LocalDateTime dateOfCreated;
 
   @PrePersist

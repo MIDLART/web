@@ -34,7 +34,7 @@ public class UserController {
   @GetMapping("/user/{user}")
   public String userInfo(@PathVariable("user") User user, Model model) {
     model.addAttribute("user", user);
-    model.addAttribute("products", user.getProducts());
+    model.addAttribute("books", user.getBooks());
     return "user-info";
   }
 }

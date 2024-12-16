@@ -1,9 +1,9 @@
 package org.example.web.services;
 
 import org.example.web.models.Image;
-import org.example.web.models.Product;
+import org.example.web.models.Book;
 import org.example.web.models.User;
-import org.example.web.repositories.ProductRepository;
+import org.example.web.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.web.repositories.UserRepository;
@@ -18,35 +18,35 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ProductService {
-  private final ProductRepository productRepository;
+public class BookService {
+  private final BookRepository bookRepository;
   private final UserRepository userRepository;
 
-  public List<Product> listProducts(String title) {
-    if (title != null) return productRepository.findByName(title);
-    return productRepository.findAll();
+  public List<Book> listBooks(String title) {
+    if (title != null) return bookRepository.findByName(title);
+    return bookRepository.findAll();
   }
 
   @Transactional
-  public void saveProduct(Principal principal, Product product, MultipartFile file1, MultipartFile file2) throws IOException {
-    product.setUser(getUserByPrincipal(principal));
+  public void saveBook(Principal principal, Book book, MultipartFile file1, MultipartFile file2) throws IOException {
+    book.setUser(getUserByPrincipal(principal));
 
     Image image1;
     Image image2;
     if (file1.getSize() != 0) {
       image1 = toImageEntity(file1);
       image1.setPreviewImage(true);
-      product.addImageToProduct(image1);
+      book.addImageToBook(image1);
     }
     if (file2.getSize() != 0) {
       image2 = toImageEntity(file2);
-      product.addImageToProduct(image2);
+      book.addImageToBook(image2);
     }
 
-    log.info("Saving new Product. Title: {}; Author email: {}", product.getName(), product.getUser().getEmail());
-    Product productFromDb = productRepository.save(product);
-    productFromDb.setPreviewImageId(productFromDb.getImages().get(0).getId());
-    productRepository.save(product);
+    log.info("Saving new Book. Title: {}; Author email: {}", book.getName(), book.getUser().getEmail());
+    Book bookFromDb = bookRepository.save(book);
+    bookFromDb.setPreviewImageId(bookFromDb.getImages().get(0).getId());
+    bookRepository.save(book);
   }
 
   public User getUserByPrincipal(Principal principal) {
@@ -64,11 +64,11 @@ public class ProductService {
     return image;
   }
 
-  public void deleteProduct(Integer id) {
-    productRepository.deleteById(id);
+  public void deleteBook(Integer id) {
+    bookRepository.deleteById(id);
   }
 
-  public Product getProductById(Integer id) {
-    return productRepository.findById(id).orElse(null);
+  public Book getBookById(Integer id) {
+    return bookRepository.findById(id).orElse(null);
   }
 }

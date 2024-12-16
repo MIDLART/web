@@ -25,10 +25,10 @@
         <input type="submit" value="Поиск"/>
     </form>
 
-    <#list products as product>
+    <#list books as book>
         <div>
             <p>
-                <b>${product.name}</b> | <a href="/product/${product.id}">Пу пу пу...</a>
+                <b>${book.name}</b> | <a href="/book/${book.id}">Пу пу пу...</a>
             </p>
         </div>
     </#list>
@@ -36,7 +36,7 @@
     <#if user.email??>
         <hr>
         <h3>Добавить бонусы</h3>
-        <form action="/product/create" method="post" enctype="multipart/form-data">
+        <form action="/book/create" method="post" enctype="multipart/form-data">
             Название объявления: <input type="text" name="name"/><br><br>
             Изображение 1: <input type="file" name="file"/><br><br>
             Изображение 2: <input type="file" name="file2"/><br><br>

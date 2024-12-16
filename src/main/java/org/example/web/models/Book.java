@@ -10,25 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table(name = "books")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Book {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Integer id;
+
   @Column(name = "name")
   private String name;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
-          mappedBy = "product")
+          mappedBy = "book")
   private List<Image> images = new ArrayList<>();
+
   private Integer previewImageId;
+
   @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
   @JoinColumn
   private User user;
+
   private LocalDateTime dateOfCreated;
 
   @PrePersist
@@ -36,9 +40,8 @@ public class Product {
     dateOfCreated = LocalDateTime.now();
   }
 
-
-  public void addImageToProduct(Image image) {
-    image.setProduct(this);
+  public void addImageToBook(Image image) {
+    image.setBook(this);
     images.add(image);
   }
 }
