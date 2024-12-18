@@ -24,7 +24,6 @@ public class UserController {
     return "registration";
   }
 
-
   @PostMapping("/registration")
   public String createUser(User user) {
     userService.createUser(user);
@@ -34,7 +33,7 @@ public class UserController {
   @GetMapping("/user/{user}")
   public String userInfo(@PathVariable("user") User user, Model model) {
     model.addAttribute("user", user);
-    model.addAttribute("books", user.getBooks());
+    //model.addAttribute("books", user.getBooks());
     return "user-info";
   }
 }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Image {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Integer id;
 
@@ -34,7 +34,4 @@ public class Image {
   @Lob
   //@Column(name = "bytes", columnDefinition = "bytea")
   private byte[] bytes;
-
-  @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-  private Book book;
 }

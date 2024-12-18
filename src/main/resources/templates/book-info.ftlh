@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Meow</title>
 </head>
+
 <body>
-<h1>Meow info</h1>
+<h1>Информация о книге</h1>
 
-<b>Бонус: </b> ${book.name}<br>
-
-<#list book.images as img>
-    <img src="/images/${img.id}" height="60px" alt="img"/><br><br>
-</#list>
-
-<b>Название товара: </b>${book.name}<br>
-<b>Автор: </b><a href="/user/${book.user.id}">${book.user.name}</a><br>
+<b>Название: </b> ${book.title}<br>
+<b>Авторы: </b>
+    <#list book.authors as author>
+        <a href="/author/${author.id}">
+        ${author.name}
+        ${author.surname}
+        ${author.patronymic}
+        </a><br>
+    </#list><br>
+<b>Издание: </b> ${book.edition}<br>
+<b>Язык: </b> ${book.language}<br>
 
 </body>
 </html>

@@ -5,9 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -20,28 +20,16 @@ public class Book {
   @Column(name = "id")
   private Integer id;
 
-  @Column(name = "name")
-  private String name;
+  @Column(name = "title")
+  private String title;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
-          mappedBy = "book")
-  private List<Image> images = new ArrayList<>();
+  @Column(name = "edition")
+  private Integer edition;
 
-  private Integer previewImageId;
+  @Column(name = "language")
+  private String language;
 
-  @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-  @JoinColumn
-  private User user;
-
-  private LocalDateTime dateOfCreated;
-
-  @PrePersist
-  private void init() {
-    dateOfCreated = LocalDateTime.now();
-  }
-
-  public void addImageToBook(Image image) {
-    image.setBook(this);
-    images.add(image);
-  }
+  @Column(name = "authors")
+  @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+  private List<Author> authors = new ArrayList<>();
 }

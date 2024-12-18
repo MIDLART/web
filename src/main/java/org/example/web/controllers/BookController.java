@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,9 +20,11 @@ public class BookController {
   private final BookService bookService;
 
   @GetMapping("/")
-  public String books(@RequestParam(name = "title", required = false) String title, Principal principal, Model model) {
+  public String books(@RequestParam(name = "searchWord", required = false) String title, Model model, Principal principal) {
     model.addAttribute("books", bookService.listBooks(title));
-    model.addAttribute("user", bookService.getUserByPrincipal(principal));
+    model.addAttribute("authors", new ArrayList<>());
+    model.addAttribute("user", bookService.getUserByPrincipal(principal)); //TODO
+    model.addAttribute("searchWord", title);
     return "books";
   }
 
@@ -30,14 +32,13 @@ public class BookController {
   public String bookInfo(@PathVariable Integer id, Model model) {
     Book book = bookService.getBookById(id);
     model.addAttribute("book", book);
-    model.addAttribute("images", book.getImages());
+    model.addAttribute("authors", book.getAuthors());
     return "book-info";
   }
 
   @PostMapping("/book/create")
-  public String createBook(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2,
-                               Book book, Principal principal) throws IOException {
-    bookService.saveBook(principal, book, file, file2);
+  public String createBook(Book book) throws IOException {
+    bookService.saveBook(book);
     return "redirect:/";
   }
 

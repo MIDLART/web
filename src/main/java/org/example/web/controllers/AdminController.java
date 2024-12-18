@@ -27,7 +27,7 @@ public class AdminController {
   }
 
   @PostMapping("/admin/user/ban/{id}")
-  public String userBan(@PathVariable("id") Long id) {
+  public String userBan(@PathVariable("id") Integer id) {
     userService.banUser(id);
     return "redirect:/admin";
   }
