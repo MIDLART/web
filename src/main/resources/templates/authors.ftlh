@@ -18,7 +18,7 @@
     <div>
         <p>
             <b>${author.surname} ${author.name} ${author.patronymic}</b>
-                | <a href="/author/${author.id}">Пу пу пу...</a>
+                | <a href="/author/${author.id}">Подробнее</a>
         </p>
     </div>
 </#list>

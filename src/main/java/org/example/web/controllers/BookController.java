@@ -1,7 +1,10 @@
 package org.example.web.controllers;
 
 import lombok.extern.log4j.Log4j2;
+import org.example.web.models.Author;
 import org.example.web.models.Book;
+import org.example.web.repositories.AuthorRepository;
+import org.example.web.services.AuthorService;
 import org.example.web.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -21,9 +25,20 @@ import java.util.ArrayList;
 public class BookController {
   private final BookService bookService;
 
+  //
+  private final AuthorService authorService;
+
   @GetMapping("/")
   public String books(@RequestParam(name = "searchWord", required = false) String title, Model model, Principal principal) {
     model.addAttribute("books", bookService.listBooks(title));
+
+    // Получить список авторов из базы данных
+    List<Author> authors = authorService.findAll();
+
+    // Передать список авторов в шаблон
+    model.addAttribute("authors", authors);
+
+
     //model.addAttribute("authors", new ArrayList<>());
     model.addAttribute("user", bookService.getUserByPrincipal(principal)); //TODO
     model.addAttribute("searchWord", title);
@@ -34,15 +49,26 @@ public class BookController {
   public String bookInfo(@PathVariable Integer id, Model model) {
     Book book = bookService.getBookById(id);
     model.addAttribute("book", book);
-    //model.addAttribute("authors", book.getAuthors());
+    model.addAttribute("authors", book.getAuthors());
     return "book-info";
   }
 
-  @PostMapping("/book/create")
-  public String createBook(Book book) throws IOException {
-//    bookService.saveBook(book);
-//    return "redirect:/";
+//  @PostMapping("/book/create")
+//  public String createBook(Book book) throws IOException {
+////    bookService.saveBook(book);
+////    return "redirect:/";
+//
+//    try {
+//      bookService.saveBook(book);
+//      return "redirect:/";
+//    } catch (Exception e) {
+//      log.error("Error creating book", e);
+//      return "redirect:/";
+//    }
+//  }
 
+  @PostMapping("/book/create")
+  public String createBook(Book book, @RequestParam(name = "authors", required = false) List<Integer> authorIds) throws IOException {
     try {
       bookService.saveBook(book);
       return "redirect:/";
@@ -51,13 +77,6 @@ public class BookController {
       return "redirect:/";
     }
   }
-
-//@PostMapping("/book/create")
-//public String createBook(String title, Integer edition, String language) throws IOException {
-//  log.info("Creating new book: {} {} {}", title, edition, language);
-//
-//  return "redirect:/";
-//}
 
   @PostMapping("/book/delete/{id}")
   public String deleteBook(@PathVariable Integer id) {

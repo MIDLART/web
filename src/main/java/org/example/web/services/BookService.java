@@ -41,7 +41,6 @@ public class BookService {
       log.error("Error saving book", e);
       throw e;
     }
-
   }
 
   public User getUserByPrincipal(Principal principal) {

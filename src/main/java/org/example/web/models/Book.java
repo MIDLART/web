@@ -29,7 +29,9 @@ public class Book {
   @Column(name = "language")
   private String language;
 
-  @Column(name = "authors")
   @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+  @JoinTable(name = "author_book",
+          joinColumns = @JoinColumn(name = "book_id"),
+          inverseJoinColumns = @JoinColumn(name = "author_id"))
   private List<Author> authors = new ArrayList<>();
 }

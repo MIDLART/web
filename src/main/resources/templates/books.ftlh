@@ -40,14 +40,24 @@
     <#if user.email??>
         <hr>
         <h3>Добавить книгу</h3>
-<#--        <form action="/book/create" method="post" enctype="multipart/form-data">-->
-        <form action="/book/create" method="post">
+        <form action="/book/create" method="post" enctype="multipart/form-data">
+<#--        <form action="/book/create" method="post">-->
             Название книги: <input type="text" name="title"/><br><br>
             Издание: <input type="number" name="edition"/><br><br>
             Язык: <input type="text" name="language"/><br><br>
 <#--            <#list 1..3 as i>-->
 <#--                Автор ${i}: <input type="text" name="authors[${i-1}]"/><br><br>-->
 <#--            </#list>-->
+
+            <ul>
+                <#list authors as author>
+                    <li>
+                        <input type="checkbox" name="authors" value="${author.id}" id="author-${author.id}">
+                        <label for="author-${author.id}">${author.surname} ${author.name} ${author.patronymic}</label>
+                    </li>
+                </#list>
+            </ul>
+
             <input type="hidden" name="_csrf" value="${_csrf.token}">
             <input type="submit" value="Добавить книгу"/>
         </form>

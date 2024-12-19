@@ -29,7 +29,7 @@ public class AuthorController {
   public String authorInfo(@PathVariable Integer id, Model model) {
     Author author = authorService.getAuthorById(id);
     model.addAttribute("author", author);
-    //model.addAttribute("books", author.getBooks());
+    model.addAttribute("books", author.getBooks());
     return "author-info";
   }
 

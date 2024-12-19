@@ -31,7 +31,6 @@ public class Author {
   @Nullable
   private String patronymic;
 
-  @Column(name = "books")
   @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
   @JoinTable(name = "author_book",
           joinColumns = @JoinColumn(name = "author_id"),
