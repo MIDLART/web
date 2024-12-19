@@ -29,19 +29,19 @@ public class AuthorController {
   public String authorInfo(@PathVariable Integer id, Model model) {
     Author author = authorService.getAuthorById(id);
     model.addAttribute("author", author);
-    model.addAttribute("books", author.getBooks());
+    //model.addAttribute("books", author.getBooks());
     return "author-info";
   }
 
   @PostMapping("/author/create")
   public String createAuthor(Author author) throws IOException {
     authorService.saveAuthor(author);
-    return "redirect:/";
+    return "redirect:/author";
   }
 
   @PostMapping("/author/delete/{id}")
   public String deleteAuthor(@PathVariable Integer id) {
     authorService.deleteAuthor(id);
-    return "redirect:/";
+    return "redirect:/author";
   }
 }

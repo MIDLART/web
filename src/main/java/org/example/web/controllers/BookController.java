@@ -1,5 +1,6 @@
 package org.example.web.controllers;
 
+import lombok.extern.log4j.Log4j2;
 import org.example.web.models.Book;
 import org.example.web.services.BookService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 
+@Log4j2
 @Controller
 @RequiredArgsConstructor
 public class BookController {
@@ -22,7 +24,7 @@ public class BookController {
   @GetMapping("/")
   public String books(@RequestParam(name = "searchWord", required = false) String title, Model model, Principal principal) {
     model.addAttribute("books", bookService.listBooks(title));
-    model.addAttribute("authors", new ArrayList<>());
+    //model.addAttribute("authors", new ArrayList<>());
     model.addAttribute("user", bookService.getUserByPrincipal(principal)); //TODO
     model.addAttribute("searchWord", title);
     return "books";
@@ -32,15 +34,30 @@ public class BookController {
   public String bookInfo(@PathVariable Integer id, Model model) {
     Book book = bookService.getBookById(id);
     model.addAttribute("book", book);
-    model.addAttribute("authors", book.getAuthors());
+    //model.addAttribute("authors", book.getAuthors());
     return "book-info";
   }
 
   @PostMapping("/book/create")
   public String createBook(Book book) throws IOException {
-    bookService.saveBook(book);
-    return "redirect:/";
+//    bookService.saveBook(book);
+//    return "redirect:/";
+
+    try {
+      bookService.saveBook(book);
+      return "redirect:/";
+    } catch (Exception e) {
+      log.error("Error creating book", e);
+      return "redirect:/";
+    }
   }
+
+//@PostMapping("/book/create")
+//public String createBook(String title, Integer edition, String language) throws IOException {
+//  log.info("Creating new book: {} {} {}", title, edition, language);
+//
+//  return "redirect:/";
+//}
 
   @PostMapping("/book/delete/{id}")
   public String deleteBook(@PathVariable Integer id) {

@@ -33,7 +33,15 @@ public class BookService {
     //book.setUser(getUserByPrincipal(principal)); TODO Author
 
     log.info("Saving new Book. Title: {}", book.getTitle());
-    bookRepository.save(book);
+    //bookRepository.save(book);
+
+    try {
+      bookRepository.save(book);
+    } catch (Exception e) {
+      log.error("Error saving book", e);
+      throw e;
+    }
+
   }
 
   public User getUserByPrincipal(Principal principal) {

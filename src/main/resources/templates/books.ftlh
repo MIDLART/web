@@ -20,32 +20,38 @@
         <a href="/login">Войти</a>
     </#if>
 
-    <form action="/" method="get">
-        Поиск: <input type="text" name="title"><br>
-        <input type="submit" value="Поиск"/>
-    </form>
+    <#if user.email??>
+        <br><a href="/author">Авторы</a><br>
 
-    <#list books as book>
-        <div>
-            <p>
-                <b>${book.title}</b> | <a href="/book/${book.id}">Пу пу пу...</a>
-            </p>
-        </div>
-    </#list>
+        <form action="/" method="get">
+            Поиск: <input type="text" name="title"><br>
+            <input type="submit" value="Поиск"/>
+        </form>
+
+        <#list books as book>
+            <div>
+                <p>
+                    <b>${book.title}</b> | <a href="/book/${book.id}">Подробнее</a>
+                </p>
+            </div>
+        </#list>
+    </#if>
 
     <#if user.email??>
         <hr>
         <h3>Добавить книгу</h3>
-        <form action="/book/create" method="post" enctype="multipart/form-data">
+<#--        <form action="/book/create" method="post" enctype="multipart/form-data">-->
+        <form action="/book/create" method="post">
             Название книги: <input type="text" name="title"/><br><br>
             Издание: <input type="number" name="edition"/><br><br>
             Язык: <input type="text" name="language"/><br><br>
-            <#list 1..3 as i>
-                Автор ${i}: <input type="text" name="authors[${i-1}]"/><br><br>
-            </#list>
-<#--            <input type="hidden" name="_csrf" value="${_csrf.token}">-->
+<#--            <#list 1..3 as i>-->
+<#--                Автор ${i}: <input type="text" name="authors[${i-1}]"/><br><br>-->
+<#--            </#list>-->
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
             <input type="submit" value="Добавить книгу"/>
         </form>
     </#if>
+
 </body>
 </html>
