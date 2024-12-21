@@ -18,8 +18,8 @@ public class User implements UserDetails {
   @Column(name = "id")
   private Integer id;
 
-  @Column(name = "email", unique = true)
-  private String email;
+//  @Column(name = "email", unique = true)
+//  private String email;
 
   @Column(name = "phoneNumber", unique = true)
   private String phoneNumber;
@@ -30,9 +30,9 @@ public class User implements UserDetails {
   @Column(name = "active")
   private boolean active;
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinColumn(name = "image_id")
-  private Image avatar;
+//  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//  @JoinColumn(name = "image_id")
+//  private Image avatar;
 
   @Column(name = "password", length = 1000)
   private String password;
@@ -45,6 +45,9 @@ public class User implements UserDetails {
 
 //  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 //  private List<Book> Books = new ArrayList<>();
+
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private Library library;
 
   private LocalDateTime dateOfCreated;
 
@@ -66,22 +69,7 @@ public class User implements UserDetails {
 
   @Override
   public String getUsername() {
-    return email;
-  }
-
-  @Override
-  public boolean isAccountNonExpired() {
-    return true;
-  }
-
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
-
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
+    return name;
   }
 
   @Override

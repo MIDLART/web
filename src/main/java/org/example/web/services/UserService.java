@@ -22,8 +22,8 @@ public class UserService {
   private final PasswordEncoder passwordEncoder;
 
   public boolean createUser(User user) {
-    String userEmail = user.getEmail();
-    if (userRepository.findByEmail(userEmail) != null) return false;
+    String userName = user.getName();
+    if (userRepository.findByName(userName) != null) return false;
     user.setActive(true);
     user.getRoles().add(Role.ROLE_USER);
     //user.getRoles().add(Role.ROLE_ADMIN);
@@ -32,7 +32,7 @@ public class UserService {
 //    String encodedPassword = passwordEncoder.encode(user.getPassword());
 //    user.setPassword(encodedPassword);
 
-    log.info("Saving new User with email: {}", userEmail);
+    log.info("Saving new User: {}", userName);
     userRepository.save(user);
     return true;
   }
@@ -46,10 +46,10 @@ public class UserService {
     if (user != null) {
       if (user.isActive()) {
         user.setActive(false);
-        log.info("Ban user with id = {}; email: {}", user.getId(), user.getEmail());
+        log.info("Ban user with id = {}; name: {}", user.getId(), user.getName());
       } else {
         user.setActive(true);
-        log.info("Unban user with id = {}; email: {}", user.getId(), user.getEmail());
+        log.info("Unban user with id = {}; name: {}", user.getId(), user.getName());
       }
     }
     userRepository.save(user);

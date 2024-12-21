@@ -7,7 +7,7 @@
 <body>
     <h1>Meow</h1><hr>
 
-    <#if user.email??>
+    <#if user.name??>
         <h3>Имя пользователя: <i>${user.name}</i></h3>
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}">
@@ -20,7 +20,7 @@
         <a href="/login">Войти</a>
     </#if>
 
-    <#if user.email??>
+    <#if user.name??>
         <br><a href="/author">Авторы</a><br>
         <br><a href="/genre">Жанры</a><br>
 
@@ -38,7 +38,7 @@
         </#list>
     </#if>
 
-    <#if user.email??>
+    <#if user.name??>
         <hr>
         <h3>Добавить книгу</h3>
         <form action="/book/create" method="post" enctype="multipart/form-data">

@@ -9,7 +9,7 @@
 <h4>Панель администратора</h4>
 <table border="1">
     <tr>
-        <th>Email</th>
+        <th>Имя</th>
         <th>Номер телефона</th>
         <th>Активность</th>
         <th>Роли</th>
@@ -19,7 +19,7 @@
     </tr>
     <#list users as user>
         <tr>
-            <th>${user.email}</th>
+            <th>${user.name}</th>
             <th>${user.phoneNumber}</th>
             <th><#if user.active>true<#else>false</#if></th>
             <th><#list user.roles as role>${role}</#list></th>
@@ -29,7 +29,7 @@
                     <input type="submit" value="Бан">
                 </form>
             </th>
-            <th><a href="/admin/user/edit/${user.id}">Редактировние</a></th>
+            <th><a href="/admin/user/edit/${user.id}">Редактирование</a></th>
             <th><a href="/user/${user.id}">Подробная информация</a></th>
         </tr>
     <#else>

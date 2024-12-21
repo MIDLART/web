@@ -48,7 +48,7 @@ public class BookService {
       return new User();
     }
 
-    return userRepository.findByEmail(principal.getName());
+    return userRepository.findByName(principal.getName());
   }
 
   public void deleteBook(Integer id) {
