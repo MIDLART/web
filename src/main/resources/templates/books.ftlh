@@ -9,6 +9,8 @@
 
     <#if user.name??>
         <h3>Имя пользователя: <i>${user.name}</i></h3>
+        <h3>Библиотека: <i>${user.library.address}</i></h3>
+
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}">
             <input type="submit" value="Выйти"/>
