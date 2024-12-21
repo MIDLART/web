@@ -22,6 +22,7 @@
 
     <#if user.email??>
         <br><a href="/author">Авторы</a><br>
+        <br><a href="/genre">Жанры</a><br>
 
         <form action="/" method="get">
             Поиск: <input type="text" name="title"><br>
@@ -48,12 +49,22 @@
 <#--            <#list 1..3 as i>-->
 <#--                Автор ${i}: <input type="text" name="authors[${i-1}]"/><br><br>-->
 <#--            </#list>-->
-
+            Авторы:
             <ul>
                 <#list authors as author>
                     <li>
                         <input type="checkbox" name="authors" value="${author.id}" id="author-${author.id}">
                         <label for="author-${author.id}">${author.surname} ${author.name} ${author.patronymic}</label>
+                    </li>
+                </#list>
+            </ul>
+
+            Жанры:
+            <ul>
+                <#list genres as genre>
+                    <li>
+                        <input type="checkbox" name="genres" value="${genre.id}" id="genre-${genre.id}">
+                        <label for="genre-${genre.id}">${genre.name}</label>
                     </li>
                 </#list>
             </ul>

@@ -34,4 +34,10 @@ public class Book {
           joinColumns = @JoinColumn(name = "book_id"),
           inverseJoinColumns = @JoinColumn(name = "author_id"))
   private List<Author> authors = new ArrayList<>();
+
+  @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+  @JoinTable(name = "book_genre",
+          joinColumns = @JoinColumn(name = "book_id"),
+          inverseJoinColumns = @JoinColumn(name = "genre_id"))
+  private List<Genre> genres = new ArrayList<>();
 }

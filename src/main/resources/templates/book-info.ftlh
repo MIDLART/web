@@ -22,5 +22,12 @@
 <b>Издание: </b> ${book.edition}<br>
 <b>Язык: </b> ${book.language}<br>
 
+<b>Жанры: </b>
+<#list book.genres as genre>
+    <a href="/genre/${genre.id} ">
+        ${genre.name}
+    </a><br>
+</#list><br>
+
 </body>
 </html>
