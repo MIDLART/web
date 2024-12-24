@@ -52,7 +52,11 @@ public class BookService {
   }
 
   public void deleteBook(Integer id) {
-    bookRepository.deleteById(id);
+    //bookRepository.deleteById(id);
+    Book book = bookRepository.findById(id).orElse(null);
+    if (book != null) {
+      bookRepository.deleteById(id);
+    }
   }
 
   public Book getBookById(Integer id) {

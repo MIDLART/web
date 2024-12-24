@@ -32,9 +32,9 @@ public class SecurityConfig {
   protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/registration").permitAll()
-                .requestMatchers("/book/**", "/image/**", "/author/**")
-                .hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
+//                .requestMatchers("/", "/registration").permitAll()
+//                .requestMatchers("/book/**", "/image/**", "/author/**")
+//                .hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
                 .anyRequest()//.authenticated()
                 .permitAll()
         )
@@ -57,28 +57,28 @@ public class SecurityConfig {
     return new BCryptPasswordEncoder(8);
   }
 
-  @Bean
-  public OncePerRequestFilter oncePerRequestFilter() {
-    return new OncePerRequestFilter() {
-      @Override
-      protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-          String username = authentication.getName();
-          String roles = authentication.getAuthorities().toString();
-          System.out.println(username + ' ' + roles);
-        } else {
-          System.out.println("mregwrg");
-        }
-
-        try {
-          filterChain.doFilter(request, response);
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        } catch (ServletException e) {
-          throw new RuntimeException(e);
-        }
-      }
-    };
-  }
+//  @Bean
+//  public OncePerRequestFilter oncePerRequestFilter() {
+//    return new OncePerRequestFilter() {
+//      @Override
+//      protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication != null && authentication.isAuthenticated()) {
+//          String username = authentication.getName();
+//          String roles = authentication.getAuthorities().toString();
+//          System.out.println(username + ' ' + roles);
+//        } else {
+//          System.out.println("mregwrg");
+//        }
+//
+//        try {
+//          filterChain.doFilter(request, response);
+//        } catch (IOException e) {
+//          throw new RuntimeException(e);
+//        } catch (ServletException e) {
+//          throw new RuntimeException(e);
+//        }
+//      }
+//    };
+//  }
 }

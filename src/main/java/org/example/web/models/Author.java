@@ -5,10 +5,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "authors")
@@ -31,6 +32,13 @@ public class Author {
   @Nullable
   private String patronymic;
 
+//  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//  @JoinTable(name = "author_book",
+//          joinColumns = @JoinColumn(name = "author_id"),
+//          inverseJoinColumns = @JoinColumn(name = "book_id"))
+//  private List<Book> books = new ArrayList<>();
+
+  @OnDelete(action = OnDeleteAction.CASCADE)
   @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
   @JoinTable(name = "author_book",
           joinColumns = @JoinColumn(name = "author_id"),

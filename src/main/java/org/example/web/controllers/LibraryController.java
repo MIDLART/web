@@ -41,6 +41,6 @@ public class LibraryController {
   @PostMapping("/library/delete/{id}")
   public String deleteLibrary(@PathVariable Integer id) {
     libraryService.deleteLibrary(id);
-    return "redirect:/library";
+    return "redirect:/";
   }
 }

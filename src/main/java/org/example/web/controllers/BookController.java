@@ -4,12 +4,13 @@ import lombok.extern.log4j.Log4j2;
 import org.example.web.models.Author;
 import org.example.web.models.Book;
 import org.example.web.models.Genre;
-import org.example.web.repositories.AuthorRepository;
 import org.example.web.services.AuthorService;
+import org.example.web.services.BookCopyService;
 import org.example.web.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.example.web.services.GenreService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 @Log4j2
 @Controller
@@ -28,9 +27,9 @@ import java.util.Scanner;
 public class BookController {
   private final BookService bookService;
 
-  //
   private final AuthorService authorService;
   private final GenreService genreService;
+  private final BookCopyService bookCopyService;
 
   @GetMapping("/")
   public String books(@RequestParam(name = "searchWord", required = false) String title, Model model, Principal principal) {
@@ -45,9 +44,7 @@ public class BookController {
     List<Genre> genres = genreService.findAll();
     model.addAttribute("genres", genres);
 
-
-    //model.addAttribute("authors", new ArrayList<>());
-    model.addAttribute("user", bookService.getUserByPrincipal(principal)); //TODO
+    model.addAttribute("user", bookService.getUserByPrincipal(principal));
     model.addAttribute("searchWord", title);
     return "books";
   }
@@ -57,6 +54,8 @@ public class BookController {
     Book book = bookService.getBookById(id);
     model.addAttribute("book", book);
     model.addAttribute("authors", book.getAuthors());
+
+    model.addAttribute("copy_count", bookCopyService.getBookCopyCountByBookId(id));
     //model.addAttribute("genres", book.getGenres());
     return "book-info";
   }
