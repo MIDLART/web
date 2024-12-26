@@ -10,7 +10,7 @@
     <br><a href="/">Главная</a><br>
 
     <form action="/reader" method="get">
-        Поиск: <input type="text" name="phoneNumber"><br>
+        Поиск: <input type="text" name="searchWord"><br>
         <input type="submit" value="Поиск"/>
     </form>
 

@@ -28,7 +28,7 @@
         <br><a href="/reader">Читатели</a><br>
 
         <form action="/" method="get">
-            Поиск: <input type="text" name="title"><br>
+            Поиск: <input type="text" name="searchWord"><br>
             <input type="submit" value="Поиск"/>
         </form>
 

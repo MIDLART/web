@@ -17,7 +17,7 @@ public class GenreService {
   private final GenreRepository genreRepository;
 
   public List<Genre> listGenres(String name) {
-    if (name != null) {
+    if (name != null && !name.isEmpty()) {
       return genreRepository.findByName(name);
     }
 

@@ -17,7 +17,7 @@ public class AuthorService {
   private final AuthorRepository authorRepository;
   
   public List<Author> listAuthors(String surname) {
-    if (surname != null) {
+    if (surname != null && !surname.isEmpty()) {
       return authorRepository.findBySurname(surname);
     }
 

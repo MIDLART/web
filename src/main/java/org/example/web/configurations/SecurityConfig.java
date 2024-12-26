@@ -32,11 +32,10 @@ public class SecurityConfig {
   protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests((requests) -> requests
-//                .requestMatchers("/", "/registration").permitAll()
-//                .requestMatchers("/book/**", "/image/**", "/author/**")
-//                .hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
-                .anyRequest()//.authenticated()
-                .permitAll()
+                .requestMatchers("/", "/registration").permitAll()
+                .requestMatchers("/book/**", "/author/**")
+                .hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
+                .anyRequest().authenticated()
         )
         .formLogin((form) -> form
                 .loginPage("/login")

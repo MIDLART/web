@@ -10,7 +10,7 @@
     <br><a href="/">Главная</a><br>
 
     <form action="/genre" method="get">
-        Поиск: <input type="text" name="name"><br>
+        Поиск: <input type="text" name="searchWord"><br>
         <input type="submit" value="Поиск"/>
     </form>
 

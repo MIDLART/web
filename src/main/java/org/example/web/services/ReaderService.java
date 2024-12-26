@@ -17,7 +17,7 @@ public class ReaderService {
   private final ReaderRepository readerRepository;
   
   public List<Reader> listReaders(String phoneNumber) {
-    if (phoneNumber != null) {
+    if (phoneNumber != null && !phoneNumber.isEmpty()) {
       return readerRepository.findByPhoneNumber(phoneNumber);
     }
 

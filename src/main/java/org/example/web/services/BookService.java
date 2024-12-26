@@ -20,8 +20,9 @@ public class BookService {
   private final BookRepository bookRepository;
   private final UserRepository userRepository;
 
+  @Transactional
   public List<Book> listBooks(String title) {
-    if (title != null) {
+    if (title != null && !title.isEmpty()) {
       return bookRepository.findByTitle(title);
     }
 
