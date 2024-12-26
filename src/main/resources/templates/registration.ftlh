@@ -8,14 +8,14 @@
 
 <h4>Регистрация</h4>
 <form action="/registration" method="post">
-    Имя пользователя: <input type="text" name="name"><br><br>
-    Номер телефона: <input type="text" name="phoneNumber"><br><br>
-    Пароль: <input type="password" name="password"><br><br>
+    Имя пользователя: <input type="text" name="name" required><br><br>
+    Номер телефона: <input type="text" name="phoneNumber" required><br><br>
+    Пароль: <input type="password" name="password" required><br><br>
 
     <ul>
         <#list libraries as library>
             <li>
-                <input type="radio" name="library" value="${library.id}" id="library-${library.id}">
+                <input type="radio" name="library" value="${library.id}" id="library-${library.id}" required>
                 <label for="library-${library.id}">${library.address}</label>
             </li>
         </#list>

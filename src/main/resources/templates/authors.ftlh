@@ -26,8 +26,8 @@
     <hr>
     <h3>Добавить автора</h3>
     <form action="/author/create" method="post" enctype="multipart/form-data">
-        Имя: <input type="text" name="name"/><br><br>
-        Фамилия: <input type="text" name="surname"/><br><br>
+        Имя: <input type="text" name="name" required/><br><br>
+        Фамилия: <input type="text" name="surname" required/><br><br>
         Отчество: <input type="text" name="patronymic"/><br><br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Добавить автора"/>

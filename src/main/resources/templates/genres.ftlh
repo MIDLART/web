@@ -25,7 +25,7 @@
     <hr>
     <h3>Добавить жанр</h3>
     <form action="/genre/create" method="post" enctype="multipart/form-data">
-        Название жанра: <input type="text" name="name"/><br><br>
+        Название жанра: <input type="text" name="name" required/><br><br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Добавить жанр"/>
     </form>

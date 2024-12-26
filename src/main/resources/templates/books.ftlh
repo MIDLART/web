@@ -46,9 +46,9 @@
         <h3>Добавить книгу</h3>
         <form action="/book/create" method="post" enctype="multipart/form-data">
 <#--        <form action="/book/create" method="post">-->
-            Название книги: <input type="text" name="title"/><br><br>
-            Издание: <input type="number" name="edition"/><br><br>
-            Язык: <input type="text" name="language"/><br><br>
+            Название книги: <input type="text" name="title" required/><br><br>
+            Издание: <input type="number" name="edition" required/><br><br>
+            Язык: <input type="text" name="language" required/><br><br>
 <#--            <#list 1..3 as i>-->
 <#--                Автор ${i}: <input type="text" name="authors[${i-1}]"/><br><br>-->
 <#--            </#list>-->
