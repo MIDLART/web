@@ -17,18 +17,18 @@ import java.io.IOException;
 public class ReaderController {
   private final ReaderService readerService;
 
-//  @GetMapping("/reader")
-//  public String readers(@RequestParam(name = "searchWord", required = false) String phoneNumber, Model model) {
-//    model.addAttribute("readers", readerService.listReaders(phoneNumber));
-//    model.addAttribute("searchWord", phoneNumber);
-//    return "readers";
-//  }
+  @GetMapping("/reader")
+  public String readers(@RequestParam(name = "searchWord", required = false) String phoneNumber, Model model) {
+    model.addAttribute("readers", readerService.listReaders(phoneNumber));
+    model.addAttribute("searchWord", phoneNumber);
+    return "readers";
+  }
 
   @GetMapping("/reader/{id}")
   public String readerInfo(@PathVariable Integer id, Model model) {
     Reader reader = readerService.getReaderById(id);
     model.addAttribute("reader", reader);
-    //model.addAttribute("books", reader.getBooks());
+    model.addAttribute("book_takings", reader.getBookTakings());
     return "reader-info";
   }
 

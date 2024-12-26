@@ -7,6 +7,7 @@ import org.example.web.services.BookCopyService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -36,9 +37,9 @@ public class BookCopyController {
     return "redirect:/book/{id}";
   }
 
-//  @GetMapping("/book_сopy/count/{id}")
-//  public String getBookCopyCount(@PathVariable Integer id) {
-//    bookCopyService.getBookCopyCountByBookId(id);
-//    return "redirect:/book/{id}";
-//  }
+  @GetMapping("/book_сopy/{id}")
+  public String getBookByCopyId(@PathVariable Integer id) {
+    bookCopyService.getBookByCopyId(id);
+    return "redirect:/book-info/{id}";
+  }
 }

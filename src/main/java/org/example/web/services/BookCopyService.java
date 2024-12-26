@@ -94,4 +94,7 @@ public class BookCopyService {
     return count;
   }
 
+  public Book getBookByCopyId(Integer id) {
+    return bookRepository.findById(id).orElse(null);
+  }
 }

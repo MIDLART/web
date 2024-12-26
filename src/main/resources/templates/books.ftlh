@@ -25,6 +25,7 @@
     <#if user.name??>
         <br><a href="/author">Авторы</a><br>
         <br><a href="/genre">Жанры</a><br>
+        <br><a href="/reader">Читатели</a><br>
 
         <form action="/" method="get">
             Поиск: <input type="text" name="title"><br>
