@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "book_copy")
@@ -22,4 +20,9 @@ BookCopy {
 //  @OnDelete(action = OnDeleteAction.CASCADE)
   @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
   private Book book;
+
+  @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+  private Library library;
+
+  //bool
 }

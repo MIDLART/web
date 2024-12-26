@@ -1,14 +1,13 @@
 package org.example.web.controllers;
 
 import lombok.extern.log4j.Log4j2;
-import org.example.web.models.Author;
-import org.example.web.models.Book;
-import org.example.web.models.Genre;
+import org.example.web.models.*;
 import org.example.web.services.AuthorService;
 import org.example.web.services.BookCopyService;
 import org.example.web.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.example.web.services.GenreService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -50,12 +49,13 @@ public class BookController {
   }
 
   @GetMapping("/book/{id}")
-  public String bookInfo(@PathVariable Integer id, Model model) {
+  public String bookInfo(@PathVariable Integer id, Model model, @AuthenticationPrincipal User user) {
     Book book = bookService.getBookById(id);
     model.addAttribute("book", book);
     model.addAttribute("authors", book.getAuthors());
+    model.addAttribute("genres", book.getGenres());
 
-    model.addAttribute("copy_count", bookCopyService.getBookCopyCountByBookId(id));
+    model.addAttribute("copy_count", bookCopyService.getBookCopyCountByBookId(id, user.getLibrary().getId()));
     //model.addAttribute("genres", book.getGenres());
     return "book-info";
   }
