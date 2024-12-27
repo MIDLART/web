@@ -24,7 +24,7 @@ public class UserService {
   public boolean createUser(User user) {
     String userName = user.getName();
     if (userRepository.findByName(userName) != null) return false;
-    user.setActive(true);
+    //user.setActive(true);
     user.getRoles().add(Role.ROLE_USER);
     //user.getRoles().add(Role.ROLE_ADMIN);
 

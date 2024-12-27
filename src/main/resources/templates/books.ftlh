@@ -48,6 +48,14 @@
         float: right;
         background-color: black;
     }
+
+    input[type="submit"] {
+        background-color: transparent;
+        border: none;
+        color: black;
+        font-size: 20px;
+        cursor: pointer;
+    }
 </style>
 
 </head>
@@ -68,13 +76,10 @@
 
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}">
-            <input type="submit" value="Выйти"/>
+            <button><input type="submit" value="Выйти"/></button>
         </form>
-    <#if user.isAdmin()>
-            <a href="/admin">Панель администратора</a>
-    </#if>
 <#else>
-        <a href="/login">Войти</a>
+    <button><a href="/login">Войти</a></button>
 
     </div>
 </#if>
@@ -86,6 +91,10 @@
     <button><br><a href="/author">Авторы</a><br></button><br>
     <button><br><a href="/genre">Жанры</a><br></button><br>
     <button><br><a href="/reader">Читатели</a><br></button><br>
+    <#if user.isAdmin()>
+        <button><br><a href="/library">Библиотеки</a><br></button><br>
+        <button><br><a href="/admin">Панель администратора</a></button><br>
+    </#if>
     </div>
 
 </#if>
@@ -129,7 +138,7 @@
 
         <form action="/" method="get">
             Поиск: <input type="text" name="searchWord"><br>
-            <input type="submit" value="Поиск"/>
+            <button><input type="submit" value="Поиск"/></button>
         </form>
 
         <#list books as book>
