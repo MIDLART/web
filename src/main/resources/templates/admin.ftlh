@@ -12,6 +12,10 @@
             font-size: 20px;
         }
 
+        a {
+            text-decoration: none;
+        }
+
         a:visited {
             color: inherit;
         }
@@ -62,7 +66,19 @@
         <button><a href="/">Главная</a></button>
     </div>
 </header>
-<h4>Панель администратора</h4>
+
+    <h3>Резервная копия</h3>
+    <a href="/admin/backup"><button><span>Скачать</span></button></a>
+
+<form action="admin/backup" method="post" enctype="multipart/form-data">
+        <h3>Загрузить резервную копию</h3>
+            <label for="backupFile">Файл данных</label>
+            <input name="backupFile" id="backupFile" type="file" required>
+        <button type="submit">Загрузить</button>
+</form>
+
+
+<h3>Панель администратора</h3>
 <table border="1">
     <tr>
         <th>Имя</th>

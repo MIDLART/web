@@ -14,6 +14,10 @@
         font-size: 20px;
     }
 
+    a {
+        text-decoration: none;
+    }
+
     a:visited {
         color: inherit;
     }
@@ -42,6 +46,22 @@
         margin-right: 20px;
 
         font-size: 20px;
+    }
+
+    big-button {
+        background-color: white;
+        color: black;
+        padding: 40px 40px;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-right: 50px;
+        margin-left: 40px;
+        margin-right: 40px;
+        position: relative;
+
+        font-size: 32px;
     }
 
     .user-info {
@@ -86,14 +106,14 @@
 </header>
 
 <#if user.name??>
-
+    <div style="clear: both;"></div>
     <div style="float: right;">
         <button><a href="/author">Авторы</a></button><br>
         <button><a href="/genre">Жанры</a></button><br>
         <button><a href="/reader">Читатели</a></button><br>
     <#if user.isAdmin()>
-        <button><br><a href="/library">Библиотеки</a><br></button><br>
-        <button><br><a href="/admin">Панель администратора</a></button><br>
+        <button><a href="/library">Библиотеки</a></button><br>
+        <button><a href="/admin">Панель администратора</a></button><br>
     </#if>
     </div>
 
