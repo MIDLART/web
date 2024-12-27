@@ -21,7 +21,7 @@ public class Library {
   @Column(name = "id")
   private Integer id;
 
-  @Column(name = "address")
+  @Column(name = "address", unique = true)
   private String address;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "library")

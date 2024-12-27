@@ -26,8 +26,13 @@ public class AuthorService {
 
   @Transactional
   public void saveAuthor(Author author) throws IOException {
-    log.info("Saving new Author: {} {} {}", author.getSurname(), author.getName(), author.getPatronymic());
-    authorRepository.save(author);
+    boolean exists = authorRepository.existsBySurnameAndNameAndPatronymic(
+            author.getSurname(), author.getName(), author.getPatronymic());
+
+    if (!exists) {
+      log.info("Saving new Author: {} {} {}", author.getSurname(), author.getName(), author.getPatronymic());
+      authorRepository.save(author);
+    }
   }
 
   public void deleteAuthor(Integer id) {

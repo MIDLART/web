@@ -53,16 +53,19 @@ public class BookService {
 
   @Transactional
   public void saveBook(Book book) throws IOException {
-    //book.setUser(getUserByPrincipal(principal)); TODO Author
+    boolean exists = bookRepository.existsByTitleAndEditionAndLanguageAndAuthors(
+            book.getTitle(), book.getEdition(), book.getLanguage(), book.getAuthors());
 
     log.info("Saving new Book. Title: {}", book.getTitle());
-    //bookRepository.save(book);
 
-    try {
-      bookRepository.save(book);
-    } catch (Exception e) {
-      log.error("Error saving book", e);
-      throw e;
+    if (!exists)
+    {
+      try {
+        bookRepository.save(book);
+      } catch (Exception e) {
+        log.error("Error saving book", e);
+        throw e;
+      }
     }
   }
 
