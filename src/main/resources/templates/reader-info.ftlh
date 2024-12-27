@@ -14,6 +14,8 @@
     <b>Фамилия: </b> ${reader.surname}<br>
     <b>Отчество: </b> ${reader.patronymic}<br>
 
+    <br><a href="/reader/${1}/book_taking/save/${1}">Го</a><br>
+
     <b>Взятые книги: </b>
     <#list reader.bookTakings as bookT>
         <a href="/book/${bookT.bookCopy.book.id} ">

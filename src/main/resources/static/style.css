@@ -1,0 +1,33 @@
+* {
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+body {
+    background-color: #212529;
+    color: #fff;
+}
+
+h1, h3 {
+    color: #fff;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ccc;
+}
+
+.form-control {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: rgba(255, 255, 255, 0.56);
+    border-color: #ffffff;
+}

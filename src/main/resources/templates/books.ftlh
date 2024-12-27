@@ -1,31 +1,131 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Meow</title>
+
+<meta charset="UTF-8">
+<title>Meow</title>
+
+<style>
+    body {
+        color: white;
+        background-color: #3a3939;
+        font-family: Arial, sans-serif;
+        font-weight: normal;
+        font-size: 20px;
+    }
+
+    a:visited {
+        color: inherit;
+    }
+
+    a:link {
+        color: inherit;
+    }
+
+    header {
+        background-color: black;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
+    button {
+        background-color: white;
+        color: black;
+        padding: 10px 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 20px;
+
+        font-size: 20px;
+    }
+
+    .user-info {
+        float: right;
+        background-color: black;
+    }
+</style>
+
 </head>
 <body>
-    <h1>Meow</h1><hr>
 
-    <#if user.name??>
-        <h3>Имя пользователя: <i>${user.name}</i></h3>
-        <h3>Библиотека: <i>${user.library.address}</i></h3>
+<header>
+
+    <div style="float: left; background-color: black;">
+        <h1 style="background-color: black; font-size: 40px;">Meow</h1>
+    </div>
+
+<#if user.name??>
+
+    <div class="user-info">
+
+        <h3 style="background-color: black;">Имя: <i style="background-color: black;">${user.name}</i></h3>
+        <h3 style="background-color: black;">Библиотека: <i style="background-color: black;">${user.library.address}</i></h3>
 
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}">
             <input type="submit" value="Выйти"/>
         </form>
-        <#if user.isAdmin()>
+    <#if user.isAdmin()>
             <a href="/admin">Панель администратора</a>
-        </#if>
-    <#else>
-        <a href="/login">Войти</a>
     </#if>
+<#else>
+        <a href="/login">Войти</a>
 
-    <#if user.name??>
-        <br><a href="/author">Авторы</a><br>
-        <br><a href="/genre">Жанры</a><br>
-        <br><a href="/reader">Читатели</a><br>
+    </div>
+</#if>
+</header>
+
+<#if user.name??>
+
+    <div style="float: right;">
+    <button><br><a href="/author">Авторы</a><br></button><br>
+    <button><br><a href="/genre">Жанры</a><br></button><br>
+    <button><br><a href="/reader">Читатели</a><br></button><br>
+    </div>
+
+</#if>
+
+<#if user.name??>
+    <div style="margin-left: 20px">
+    <details>
+    <summary><b> Добавить книгу</b></summary><br>
+    <form action="/book/create" method="post" enctype="multipart/form-data">
+        <#--        <form action="/book/create" method="post">-->
+        Название книги: <input type="text" name="title" required/><br><br>
+        Издание: <input type="number" name="edition" required/><br><br>
+        Язык: <input type="text" name="language" required/><br><br>
+        <#--            <#list 1..3 as i>-->
+        <#--                Автор ${i}: <input type="text" name="authors[${i-1}]"/><br><br>-->
+        <#--            </#list>-->
+        Авторы:
+        <ul>
+            <#list authors as author>
+                <li>
+                    <input type="checkbox" name="authors" value="${author.id}" id="author-${author.id}">
+                    <label for="author-${author.id}">${author.surname} ${author.name} ${author.patronymic}</label>
+                </li>
+            </#list>
+        </ul>
+
+        Жанры:
+        <ul>
+            <#list genres as genre>
+                <li>
+                    <input type="checkbox" name="genres" value="${genre.id}" id="genre-${genre.id}">
+                    <label for="genre-${genre.id}">${genre.name}</label>
+                </li>
+            </#list>
+        </ul>
+
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="submit" value="Добавить книгу"/>
+    </form>
+    </details><br>
 
         <form action="/" method="get">
             Поиск: <input type="text" name="searchWord"><br>
@@ -39,43 +139,8 @@
                 </p>
             </div>
         </#list>
-    </#if>
-
-    <#if user.name??>
-        <hr>
-        <h3>Добавить книгу</h3>
-        <form action="/book/create" method="post" enctype="multipart/form-data">
-<#--        <form action="/book/create" method="post">-->
-            Название книги: <input type="text" name="title" required/><br><br>
-            Издание: <input type="number" name="edition" required/><br><br>
-            Язык: <input type="text" name="language" required/><br><br>
-<#--            <#list 1..3 as i>-->
-<#--                Автор ${i}: <input type="text" name="authors[${i-1}]"/><br><br>-->
-<#--            </#list>-->
-            Авторы:
-            <ul>
-                <#list authors as author>
-                    <li>
-                        <input type="checkbox" name="authors" value="${author.id}" id="author-${author.id}">
-                        <label for="author-${author.id}">${author.surname} ${author.name} ${author.patronymic}</label>
-                    </li>
-                </#list>
-            </ul>
-
-            Жанры:
-            <ul>
-                <#list genres as genre>
-                    <li>
-                        <input type="checkbox" name="genres" value="${genre.id}" id="genre-${genre.id}">
-                        <label for="genre-${genre.id}">${genre.name}</label>
-                    </li>
-                </#list>
-            </ul>
-
-            <input type="hidden" name="_csrf" value="${_csrf.token}">
-            <input type="submit" value="Добавить книгу"/>
-        </form>
-    </#if>
+    </div>
+</#if>
 
 </body>
 </html>
