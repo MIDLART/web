@@ -76,6 +76,15 @@
         font-size: 20px;
         cursor: pointer;
     }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+
 </style>
 
 </head>
@@ -90,20 +99,29 @@
 <#if user.name??>
 
     <div class="user-info">
-
-        <h3 style="background-color: black;">Имя: <i style="background-color: black;">${user.name}</i></h3>
-        <h3 style="background-color: black;">Библиотека: <i style="background-color: black;">${user.library.address}</i></h3>
-
+    <div class="container">
+        <div class="box1">
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}">
             <button><input type="submit" value="Выйти"/></button>
         </form>
+        </div>
+
+        <div class="box2">
+
+            <h3 style="background-color: black;">Имя: <i style="background-color: black;">${user.name}</i></h3>
+            <h3 style="background-color: black;">Библиотека: <i style="background-color: black;">${user.library.address}</i></h3>
+
+        </div>
+
+    </div>
 <#else>
     <button><a href="/login">Войти</a></button>
 
     </div>
 </#if>
 </header>
+
 
 <#if user.name??>
     <div style="clear: both;"></div>
@@ -124,13 +142,9 @@
     <details>
     <summary><b> Добавить книгу</b></summary><br>
     <form action="/book/create" method="post" enctype="multipart/form-data">
-        <#--        <form action="/book/create" method="post">-->
         Название книги: <input type="text" name="title" required/><br><br>
         Издание: <input type="number" name="edition" required/><br><br>
         Язык: <input type="text" name="language" required/><br><br>
-        <#--            <#list 1..3 as i>-->
-        <#--                Автор ${i}: <input type="text" name="authors[${i-1}]"/><br><br>-->
-        <#--            </#list>-->
         Авторы:
         <ul>
             <#list authors as author>
@@ -156,9 +170,14 @@
     </form>
     </details><br>
 
+        <div style="float: left">
         <form action="/" method="get">
-            Поиск: <input type="text" name="searchWord"><br>
-            <button><input type="submit" value="Поиск"/></button>
+            <div class="container">
+                <div class="box1">
+                    Поиск: <input type="text" name="searchWord"><br> </div>
+                <div class="box2">
+                    <button><input type="submit" value="Поиск"/></button> </div>
+            </div>
         </form>
 
         <#list books as book>
@@ -168,6 +187,7 @@
                 </p>
             </div>
         </#list>
+        </div>
     </div>
 </#if>
 
