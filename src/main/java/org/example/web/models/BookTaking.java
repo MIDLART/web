@@ -33,5 +33,9 @@ public class BookTaking {
     startDate = LocalDateTime.now();
     endDate = null;
   }
+
+  public boolean isNull() {
+    return endDate == null;
+  }
 }
 

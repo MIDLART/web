@@ -88,9 +88,9 @@
 <#if user.name??>
 
     <div style="float: right;">
-    <button><br><a href="/author">Авторы</a><br></button><br>
-    <button><br><a href="/genre">Жанры</a><br></button><br>
-    <button><br><a href="/reader">Читатели</a><br></button><br>
+        <button><a href="/author">Авторы</a></button><br>
+        <button><a href="/genre">Жанры</a></button><br>
+        <button><a href="/reader">Читатели</a></button><br>
     <#if user.isAdmin()>
         <button><br><a href="/library">Библиотеки</a><br></button><br>
         <button><br><a href="/admin">Панель администратора</a></button><br>
@@ -132,7 +132,7 @@
         </ul>
 
         <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="Добавить книгу"/>
+        <button><input type="submit" value="Добавить книгу"/></button>
     </form>
     </details><br>
 

@@ -94,6 +94,21 @@ public class BookCopyService {
     return count;
   }
 
+  public BookCopy getBookCopyByBookId(Integer bookId, Integer libraryId) {
+    List<BookCopy> bookCopies = bookCopyRepository.findByBookId(bookId);
+
+    bookCopies = bookCopies.stream()
+            .filter(bookCopy -> bookCopy.getBookTakings().stream()
+                    .noneMatch(bookTaking -> bookTaking.getEndDate() == null))
+            .toList();
+
+    if (bookCopies.isEmpty()) {
+      return null;
+    }
+
+    return bookCopies.get(0);
+  }
+
   public Book getBookByCopyId(Integer id) {
     return bookRepository.findById(id).orElse(null);
   }

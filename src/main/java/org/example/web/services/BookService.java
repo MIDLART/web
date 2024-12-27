@@ -29,6 +29,28 @@ public class BookService {
     return bookRepository.findAll();
   }
 
+  public List<Book> findBooks(String title, Integer edition, String language) {
+    if (title == null || title.isEmpty()) {
+      return null;
+    }
+
+    List<Book> books = bookRepository.findByTitle(title);
+
+    if (edition != null) {
+      books = books.stream()
+              .filter(book -> book.getEdition().equals(edition))
+              .toList();
+    }
+
+    if (language != null && !language.isEmpty()) {
+      books = books.stream()
+              .filter(book -> book.getLanguage().equals(language))
+              .toList();
+    }
+
+    return books;
+  }
+
   @Transactional
   public void saveBook(Book book) throws IOException {
     //book.setUser(getUserByPrincipal(principal)); TODO Author

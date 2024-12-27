@@ -71,4 +71,10 @@ public class Book {
       genre.getBooks().remove(this);
     }
   }
+
+  @Override
+  public String toString() {
+    return title;
+  }
+
 }

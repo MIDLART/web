@@ -44,4 +44,10 @@ public class Author {
           joinColumns = @JoinColumn(name = "author_id"),
           inverseJoinColumns = @JoinColumn(name = "book_id"))
   private List<Book> books = new ArrayList<>();
+
+  @Override
+  public String toString() {
+    return surname + " " + name + " " + patronymic;
+  }
+
 }

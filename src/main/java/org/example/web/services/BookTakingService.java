@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -36,9 +37,15 @@ public class BookTakingService {
   }
 
   public void endBookTaking(BookCopy bookCopy, Reader reader) throws IOException {
-    BookTaking bookTaking = bookTakingRepository.findByBookCopy(bookCopy);
-    if (bookTaking != null) {
-      bookTaking.setEndDate(LocalDateTime.now());
+    List<BookTaking> bookTaking = bookTakingRepository.findByBookCopy(bookCopy);
+    if (!bookTaking.isEmpty()) {
+      for (BookTaking bookTaking1 : bookTaking) {
+        if (bookTaking1.getEndDate() == null)
+        {
+          bookTaking1.setEndDate(LocalDateTime.now());
+          return;
+        }
+      }
     }
   }
 
