@@ -33,12 +33,6 @@ public class Book {
   @Column(name = "language")
   private String language;
 
-//  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//  @JoinTable(name = "author_book",
-//          joinColumns = @JoinColumn(name = "book_id"),
-//          inverseJoinColumns = @JoinColumn(name = "author_id"))
-//  private List<Author> authors = new ArrayList<>();
-
   @OnDelete(action = OnDeleteAction.CASCADE)
   @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
   @JoinTable(name = "author_book",

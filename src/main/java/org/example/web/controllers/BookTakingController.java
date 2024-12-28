@@ -26,27 +26,6 @@ public class BookTakingController {
   private final ReaderService readerService;
   private final BookService bookService;
 
-//  @GetMapping("/search")
-//  public String readerSearch(@RequestParam(name = "searchWord", required = false) String title, Model model) {
-//    if (title == null || title.isEmpty()) {
-//      model.addAttribute("rbooks", "не найдено");
-//    }
-//    model.addAttribute("rbooks", bookService.listBooks(title));
-//    model.addAttribute("searchWord", title);
-//    return "rbooks";
-//  }
-
-//  @GetMapping("/reader/{id}/book_taking/save/{bookId}")
-//  public String saveBookTaking(@PathVariable Integer id, @PathVariable Integer bookId) throws IOException {
-//    try {
-//      bookTakingService.saveBookTaking(bookCopyService.getBookCopyById(bookId), readerService.getReaderById(id));
-//      return "redirect:/reader/" + id;
-//    } catch (Exception e) {
-//      log.error("Error creating bookCopy", e);
-//      return "redirect:/reader/" + id;
-//    }
-//  }
-
   @PostMapping("/reader/{id}/book_taking")
   public String take(@PathVariable Integer id, Book book, @AuthenticationPrincipal User user) throws IOException {
     if (book.getTitle() != null && !book.getTitle().isEmpty()) {

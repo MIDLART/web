@@ -1,11 +1,14 @@
 package org.example.web.services;
 
-import org.example.web.models.Book;
-import org.example.web.models.User;
+import org.example.web.controllers.BookController;
+import org.example.web.models.*;
 import org.example.web.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.web.repositories.UserRepository;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +22,10 @@ import java.util.List;
 public class BookService {
   private final BookRepository bookRepository;
   private final UserRepository userRepository;
+
+  private final BookCopyService bookCopyService;
+
+  private final JdbcTemplate jdbc;
 
   @Transactional
   public List<Book> listBooks(String title) {
@@ -53,8 +60,13 @@ public class BookService {
 
   @Transactional
   public void saveBook(Book book) throws IOException {
-    boolean exists = bookRepository.existsByTitleAndEditionAndLanguageAndAuthors(
-            book.getTitle(), book.getEdition(), book.getLanguage(), book.getAuthors());
+//    boolean exists = bookRepository.existsByTitleAndEditionAndLanguageAndAuthors(
+//            book.getTitle(), book.getEdition(), book.getLanguage(), book.getAuthors());
+
+//    boolean exists = bookRepository.existsByTitleAndEditionAndLanguageAndAuthors(
+//            book.getTitle(), book.getEdition(), book.getLanguage(),
+//            book.getAuthors().stream().map(Author::getId).toList());
+    boolean exists = false;
 
     log.info("Saving new Book. Title: {}", book.getTitle());
 
@@ -77,12 +89,23 @@ public class BookService {
     return userRepository.findByName(principal.getName());
   }
 
+  @Transactional
   public void deleteBook(Integer id) {
+    //bookCopyService.deleteAllBookCopy(id, library);
+
     //bookRepository.deleteById(id);
-    Book book = bookRepository.findById(id).orElse(null);
-    if (book != null) {
-      bookRepository.deleteById(id);
-    }
+//    Book book = bookRepository.findById(id).orElse(null);
+//    if (book != null) {
+//      bookRepository.deleteById(id);
+//    }
+    log.info("Deleting book with id: {}", id);
+
+      String sql = String.format("""
+        DELETE FROM books
+          WHERE id = %s
+        """, id);
+
+      jdbc.update(sql);
   }
 
   public Book getBookById(Integer id) {

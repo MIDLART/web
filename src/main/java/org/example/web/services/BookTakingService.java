@@ -19,14 +19,6 @@ import java.util.List;
 public class BookTakingService {
   private final BookTakingRepository bookTakingRepository;
 
-//  public List<BookTaking> listBookTakings(String surname) {
-//    if (surname != null) {
-//      return bookTakingRepository.findBySurname(surname);
-//    }
-//
-//    return bookTakingRepository.findAll();
-//  }
-
   @Transactional
   public void saveBookTaking(BookCopy bookCopy, Reader reader) throws IOException {
     BookTaking bookTaking = new BookTaking();
@@ -48,16 +40,4 @@ public class BookTakingService {
       }
     }
   }
-
-//  public void deleteBookTaking(Integer id) {
-//    bookTakingRepository.deleteById(id);
-//  }
-//
-//  public BookTaking getBookTakingById(Integer id) {
-//    return bookTakingRepository.findById(id).orElse(null);
-//  }
-//
-//  public List<BookTaking> findAll() {
-//    return bookTakingRepository.findAll();
-//  }
 }

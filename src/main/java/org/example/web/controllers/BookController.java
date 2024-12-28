@@ -34,10 +34,7 @@ public class BookController {
   public String books(@RequestParam(name = "searchWord", required = false) String title, Model model, Principal principal) {
     model.addAttribute("books", bookService.listBooks(title));
 
-    // Получить список авторов из базы данных
     List<Author> authors = authorService.findAll();
-
-    // Передать список авторов в шаблон
     model.addAttribute("authors", authors);
 
     List<Genre> genres = genreService.findAll();
@@ -64,6 +61,11 @@ public class BookController {
   public String createBook(Book book,
                            @RequestParam(name = "authors", required = false) List<Integer> authorIds,
                            @RequestParam(name = "genres", required = false) List<Integer> genreIds) throws IOException {
+    List<Author> authors = authorService.findByIdIn(authorIds);
+    List<Genre> genres = genreService.findByIdIn(genreIds);
+    book.setAuthors(authors);
+    book.setGenres(genres);
+
     try {
       bookService.saveBook(book);
       return "redirect:/";

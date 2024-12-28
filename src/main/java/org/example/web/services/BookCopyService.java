@@ -50,16 +50,14 @@ public class BookCopyService {
     Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
 
     List<BookCopy> copies = book.getBookCopies();
-    List<BookCopy> curBookCopies = new ArrayList<>();
 
     log.info("Lib id {}", library.getId());
 
-    for (BookCopy bookCopy : copies) {
-      //log.info("* {}", );
-      if (bookCopy.getLibrary().getId().equals(library.getId())) {
-        curBookCopies.add(bookCopy);
-      }
-    }
+    List<BookCopy> curBookCopies = copies.stream()
+            .filter(bookCopy -> bookCopy.getLibrary().getId().equals(library.getId()))
+            .filter(bookCopy -> bookCopy.getBookTakings().stream()
+                    .anyMatch(bookTaking -> bookTaking.getEndDate() != null))
+            .toList();
 
     if (!curBookCopies.isEmpty()) {
       Integer id = curBookCopies.get(curBookCopies.size() - 1).getId();
@@ -86,7 +84,8 @@ public class BookCopyService {
     int count = 0;
 
     for (BookCopy bookCopy : bookCopies) {
-      if (bookCopy.getLibrary().getId().equals(libraryId)) {
+      if (bookCopy.getLibrary().getId().equals(libraryId)&&
+          bookCopy.getBookTakings().stream().noneMatch(bookTaking -> bookTaking.getEndDate() == null)) {
         count++;
       }
     }
@@ -100,6 +99,7 @@ public class BookCopyService {
     bookCopies = bookCopies.stream()
             .filter(bookCopy -> bookCopy.getBookTakings().stream()
                     .noneMatch(bookTaking -> bookTaking.getEndDate() == null))
+            .filter(bookCopy -> bookCopy.getLibrary().getId().equals(libraryId))
             .toList();
 
     if (bookCopies.isEmpty()) {
@@ -110,6 +110,20 @@ public class BookCopyService {
   }
 
   public Book getBookByCopyId(Integer id) {
+
     return bookRepository.findById(id).orElse(null);
+  }
+
+  public void deleteAllBookCopy(Integer bookId, Library library) {
+    log.info("!!!!!!!!!!!!!!!Lib id {}", library.getId());
+    List<BookCopy> bookCopies = bookCopyRepository.findByBookId(bookId);
+
+    for (BookCopy bookCopy : bookCopies) {
+      log.info("1");
+      if (bookCopy.getLibrary().getId().equals(library.getId())) {
+        bookCopyRepository.delete(bookCopy);
+        log.info("aaaaaaaaaaaaaaaaaaa");
+      }
+    }
   }
 }

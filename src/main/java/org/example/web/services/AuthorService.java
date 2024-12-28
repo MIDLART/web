@@ -46,4 +46,8 @@ public class AuthorService {
   public List<Author> findAll() {
     return authorRepository.findAll();
   }
+
+  public List<Author> findByIdIn(List<Integer> authorIds) {
+    return authorRepository.findByIdIn(authorIds);
+  }
 }

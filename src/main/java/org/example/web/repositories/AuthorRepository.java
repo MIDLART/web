@@ -9,4 +9,6 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
   List<Author> findBySurname(String surname);
 
   boolean existsBySurnameAndNameAndPatronymic(String surname, String name, String patronymic);
+
+  List<Author> findByIdIn(List<Integer> authorIds);
 }
