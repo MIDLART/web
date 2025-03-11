@@ -70,10 +70,11 @@
     <h3>Резервная копия</h3>
     <a href="/admin/backup"><button><span>Скачать</span></button></a>
 
-<form action="admin/backup" method="post" enctype="multipart/form-data">
+<form action="/admin/upload_backup" method="post" enctype="multipart/form-data">
         <h3>Загрузить резервную копию</h3>
             <label for="backupFile">Файл данных</label>
-            <input name="backupFile" id="backupFile" type="file" required>
+            <input name="file" id="backupFile" type="file" required>
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
         <button type="submit">Загрузить</button>
 </form>
 

@@ -48,11 +48,11 @@ public class BackupService {
 
   public void createBackup() {
     try {
-      ProcessBuilder processBuilder = new ProcessBuilder("docker", "exec", "-u", dbUser, containerName,
-              "pg_dump", "-c", dbName);
+      ProcessBuilder processBuilder = new ProcessBuilder("docker", "exec", containerName,
+              "pg_dump", "-U", dbUser, "-Fc", dbName);
       processBuilder
               .redirectError(ProcessBuilder.Redirect.appendTo(new File(backupLogPath)))
-              .redirectOutput(ProcessBuilder.Redirect.appendTo(new File(backupPath)))
+              .redirectOutput(ProcessBuilder.Redirect.to(new File(backupPath)))
               .start()
               .waitFor();
 
@@ -104,8 +104,8 @@ public class BackupService {
     }
 
     try {
-      ProcessBuilder processBuilder = new ProcessBuilder("docker", "exec", "-u", dbUser, containerName,
-              "psql", "-d", dbName, "-f", remoteBackupPath);
+      ProcessBuilder processBuilder = new ProcessBuilder("docker", "exec", containerName,
+              "pg_restore", "-U", dbUser, "--clean", "-d", dbName, remoteBackupPath);
       processBuilder
               .redirectErrorStream(true)
               .redirectError(ProcessBuilder.Redirect.appendTo(new File(backupLogPath)))

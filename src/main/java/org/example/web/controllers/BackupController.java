@@ -6,6 +6,7 @@ import org.example.web.services.BackupService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -29,15 +30,16 @@ public class BackupController {
     }
   }
 
-  @PostMapping("/admin/backup")
-  public String uploadBackup(MultipartFile backupFile) {
-    if (backupFile == null) {
+  @PostMapping("/admin/upload_backup")
+  public String uploadBackup(@RequestParam("file") MultipartFile file) {
+    if (file == null) {
       return "redirect:/admin";
     }
 
-    backupService.restoreFromBackupFile(backupFile);
+    backupService.restoreFromBackupFile(file);
 
     return "redirect:/admin";
   }
+
 
 }

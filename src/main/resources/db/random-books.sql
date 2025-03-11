@@ -1,0 +1,2 @@
+CREATE VIEW vw_random_books AS
+SELECT * FROM books ORDER BY RANDOM() LIMIT 10;

@@ -170,7 +170,7 @@
     </form>
     </details><br>
 
-        <div style="float: left">
+        <div style="float: left; margin-left: 20px;">
         <form action="/" method="get">
             <div class="container">
                 <div class="box1">
@@ -180,13 +180,20 @@
             </div>
         </form>
 
-        <#list books as book>
-            <div>
-                <p>
-                    <b>${book.title}</b> | <a href="/book/${book.id}">Подробнее</a>
-                </p>
-            </div>
-        </#list>
+<#--        <#list books as book>-->
+<#--            <div>-->
+<#--                <p>-->
+<#--                    <b>${book.title}</b> | <a href="/book/${book.id}">Подробнее</a>-->
+<#--                </p>-->
+<#--            </div>-->
+<#--        </#list>-->
+            <#list rand as book>
+                <div>
+                    <p>
+                        <b>${book.title}</b> | <a href="/book/${book.id}">Подробнее</a>
+                    </p>
+                </div>
+            </#list>
         </div>
     </div>
 </#if>

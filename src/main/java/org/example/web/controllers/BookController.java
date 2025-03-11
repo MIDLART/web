@@ -37,6 +37,8 @@ public class BookController {
     List<Author> authors = authorService.findAll();
     model.addAttribute("authors", authors);
 
+    model.addAttribute("rand", bookService.view());
+
     List<Genre> genres = genreService.findAll();
     model.addAttribute("genres", genres);
 

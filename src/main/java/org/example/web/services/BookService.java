@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.web.repositories.UserRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -110,5 +111,22 @@ public class BookService {
 
   public Book getBookById(Integer id) {
     return bookRepository.findById(id).orElse(null);
+  }
+
+  public List<Book> view() {
+    String sql = String.format("""
+        SELECT * FROM vw_random_books
+        """);
+
+    RowMapper<Book> rowMapper = (r, i) ->
+            new Book(r.getInt("id"),
+                    r.getString("title"),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
+
+    return jdbc.query(sql, rowMapper);
   }
 }
